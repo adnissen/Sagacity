@@ -7,9 +7,11 @@ if (typeof Handlebars !== 'undefined') {
   });
 }
 
-Template.hello.loadMedium = function() {
-  new Medium({
+if (typeof Handlebars !== 'undefined') {
+  Handlebars.registerHelper('loadMedium', function(name, options) {
+    new Medium({
       element: document.getElementById('editor'),
       mode: 'rich'
     });
+  });
 }

@@ -13,4 +13,4 @@ Template.hello.rendered = function() {
       element: document.getElementById('editor'),
       autofocus: true
     });
-}
+};

@@ -8,7 +8,7 @@ if (typeof Handlebars !== 'undefined') {
   });
 }
 
-Template.hello.rendered = function() {
+Template.editor.rendered = function() {
   new Medium({
       element: document.getElementById('editor'),
       autofocus: true

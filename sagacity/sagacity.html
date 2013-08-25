@@ -1,21 +1,38 @@
 <head>
   <title>sagacity</title>
-  <script type="text/javascript"></script>
+  <link href="medium.css">
+  <style type="text/css">
+    body {
+     font-size: 18px;
+     line-height: 26px;
+    }
+
+    h1,h2,h3,h4,h5,h6,p {
+   font-family: inherit;
+   font-size: inherit;
+   }
+
+   h1 {
+   font-size: 2em;
+   line-height: 1em;
+   }
+   h2 {
+   font-size: 3em;
+   line-height: 1em;
+   }
+  </style>
 </head>
 
 <body>
   {{> hello}}
+
+  {{afterBody}}
+
 </body>
 
 <template name="hello">
   <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
-
   <div id="editor" class="editor" contenteditable="true">
-    <p>This is a paragraph</p>
-    <p>This is another paragraph with a <b>bold</b> tag</p>
-    <hr />
-    <p>I keep everything clean</p>
-</div>
+    
+  </div>
 </template>

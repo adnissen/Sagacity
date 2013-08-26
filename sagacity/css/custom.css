@@ -1,11 +1,12 @@
 .container {
   margin-top: 10%;
-  margin-left: 20%;
-  width: 60%;
+  margin-left: 25%;
+  width: 50%;
 }
 
 .editor {
   min-height: 40px;
+  outline: 0px solid transparent;
 }
 
 .editorP { 

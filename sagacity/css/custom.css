@@ -1,4 +1,13 @@
+.container {
+  margin-top: 10%;
+  margin-left: 20%;
+  width: 60%;
+}
+
 .editor {
-  margin: 20px;
-  min-height: 1px;
+  min-height: 40px;
+}
+
+.editorP { 
+  min-height: 40px;
 }

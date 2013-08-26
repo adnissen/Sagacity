@@ -3,36 +3,23 @@
   <link href="medium.css">
   <style type="text/css">
     body {
-     font-size: 18px;
+     font-size: 20px;
      line-height: 26px;
     }
 
-    h1,h2,h3,h4,h5,h6,p {
-   font-family: inherit;
-   font-size: inherit;
-   }
-
-   h1 {
-   font-size: 2em;
-   line-height: 1em;
-   }
-   h2 {
-   font-size: 3em;
-   line-height: 1em;
-   }
-  </style>
 </head>
 
 <body>
-  {{> editor}}
-  {{loginButtons}}
-  {{afterBody}}
+  <div class="container">
+    {{loginButtons}}
+    {{> editor}}
+    {{afterBody}}
+  </div>
 
 </body>
 
 <template name="editor">
-  <h1>Hello World!</h1>
   <div id="editor" class="editor" contenteditable="true">
-    <p>This is your slate. Delete this text and start writing!</p>
+    <p class="editorP">This is Sagacity, a simple writing platform designed to get out of your way and let you write. All you have to do is delete this text and start writing.</p>
   </div>
 </template>

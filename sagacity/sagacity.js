@@ -1,9 +1,6 @@
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to sagacity.";
-  };
 
-  Template.hello.events({
+  Template.editor.events({
     'click input' : function () {
       // template data, if any, is available in 'this'
       if (typeof console !== 'undefined')

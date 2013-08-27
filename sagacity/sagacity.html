@@ -24,14 +24,14 @@
   {{loginButtons}}
   <br>
   <div>
-  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. Your title.</h2>
+  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}"></h2>
   </div>
   <div id="editor" class="editor" contenteditable="{{isLoggedIn}}">
 
     {{#unless isLoggedIn}}
-    <p>You aren't logged in! In order to start using Sagacity, log in with your Twitter account above. When you do, all of this text will become editable.</p>
+    <p>You aren't logged in! In order to start using Sagacity, log in with your Twitter account above.</p>
     {{/unless}}
-    <p class="editorP">This is Sagacity, a simple writing platform designed to get out of your way and let you write. All you have to do is delete this text and start writing.</p>
+    <p class="editorP"></p>
   </div>
   {{#if isLoggedIn}}
   <br><br>
@@ -42,5 +42,9 @@
 <template name="showPost">
   <h2>{{title}}</h2>
   {{content}}<br><br>
-  <i>@{{author}} ({{screenName}})</i>
+  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i>
+</template>
+
+<template name="404">
+  <h2>oops! are you lost? go <a href="/">home</a></h2>
 </template>

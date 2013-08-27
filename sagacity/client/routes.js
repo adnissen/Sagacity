@@ -11,5 +11,7 @@ Meteor.Router.add({
     }
     else
       Meteor.Router.to('/');
-  }
+  },
+
+  '*' : '404'
 });

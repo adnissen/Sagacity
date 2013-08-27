@@ -9,7 +9,7 @@ Template.editor.rendered = function() {
 };
 
 Template.editor.isLoggedIn = function() {
-  return (Meteor.userId());
+  return (Meteor.userId() !== null);
 };
 
 Template.editor.profileImage = function() {

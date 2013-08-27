@@ -82,3 +82,11 @@ Template.showPost.content = function() {
   Session.set('currentPostContent', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).content);
   return Session.get('currentPostContent');
 };
+
+Template.authorPage.author = function () {
+  return Session.get('currentAuthorPage');
+};
+
+Template.authorPage.post = function() {
+  return Posts.find({author: Session.get('currentAuthorPage')}, {sort: {time: -1}});
+};

@@ -42,7 +42,15 @@
 <template name="showPost">
   <h2>{{title}}</h2>
   {{content}}<br><br>
-  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i>
+  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br><br>
+  <small><a href="/{{author}}">more from this author</a></small>
+</template>
+
+<template name="authorPage">
+  <h2>{{author}}</h2>
+  {{#each post}}
+  <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a><br>
+  {{/each}}
 </template>
 
 <template name="404">

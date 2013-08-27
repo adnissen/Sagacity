@@ -65,7 +65,7 @@ Template.editor.profileImage = function() {
 Template.editor.events({
   'click button.minimal': function () {
     var title = $('#title').text();
-    var content = $('#editor').text();
+    var content = $('#editor').html();
     Meteor.call("publishPost", title, content, function (data, err){
       console.log("waiting for callback");
       console.log(data);

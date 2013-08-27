@@ -20,5 +20,21 @@ Meteor.methods({
       ret.author = _author;
       return ret;
     }
+  },
+
+  updatePost: function(_post, _newContent){
+    if (Meteor.user() !== null){
+      var post = Posts.findOne({_id: _post});
+      if (post !== null){
+        if (post.author === Meteor.user().services.twitter.screenName){
+          Posts.update({_id: _post}, {$set: {content: _newContent}});
+          post = Posts.findOne({_id: _post});
+        }
+        else
+          return "this user isn't the author of this post";
+      }
+      else
+        return "post not found";
+    }
   }
 });

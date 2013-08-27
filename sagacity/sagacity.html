@@ -41,9 +41,14 @@
 
 <template name="showPost">
   <h2>{{title}}</h2>
-  <div id="content">
+  <div id="content" class="content" contenteditable="{{isOwner}}">
   {{{content}}}
   </div>
+  {{#if isOwner}}
+  <br>
+  <button class="minimal">Update</button>
+  <br>
+  {{/if}}
   <br>
   <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br><br>
   <small><a href="/{{author}}">more from this author</a></small>

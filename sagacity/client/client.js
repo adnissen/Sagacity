@@ -70,8 +70,13 @@ Template.editor.events({
       console.log("waiting for callback");
       console.log(data);
       var author = Meteor.user().services.twitter.screenName;
-      localStorage.title = "";
-      localStorage.editor = "";
+      //clear localStorage
+      //if they don't have it, there's nothing to be cleared because they suck
+      if(typeof(Storage)!=="undefined")
+      {
+        localStorage.title = "";
+        localStorage.editor = "";
+      }
       Meteor.Router.to('/' + author + '/' + escape(title));
     });
   },
@@ -84,6 +89,57 @@ Template.editor.events({
     }
   }
 });
+
+Template.showPost.events({
+  'click button.minimal': function () {
+    var id = Session.get("currentPostId");
+    var content = $('#content').html();
+    Meteor.call("updatePost", id, content, function (data, err){
+      var author = Meteor.user().services.twitter.screenName;
+      Meteor.Router.to('/' + author + '/' + escape(Session.get('currentPostTitle')));
+    });
+  }
+});
+
+Template.showPost.rendered = function () {
+  if (Meteor.user() !== null)
+  {
+    if (Meteor.user().services.twitter.screenName === Session.get('currentPostAuthor')){
+      new Medium({
+      element: document.getElementById('content'),
+      modifier: 'auto',
+      placeholder: "",
+      autofocus: false,
+      autoHR: true,
+      mode: 'rich',
+      maxLength: -1,
+      modifiers: {
+          66: 'bold',
+          73: 'italicize',
+          85: 'underline',
+          86: 'paste'
+      },
+      tags: {
+          paragraph: 'p',
+          outerLevel: ['pre','blockquote', 'figure', 'hr'],
+          innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
+      },
+      cssClasses: {
+          editor: 'Medium',
+          pasteHook: 'Medium-paste-hook',
+          placeholder: 'Medium-placeholder'
+      }
+    });
+    }
+  }
+};
+
+Template.showPost.isOwner = function() {
+  if (Meteor.user() !== null)
+  {
+    return (Meteor.user().services.twitter.screenName === Session.get('currentPostAuthor'));
+  }
+};
 
 Template.showPost.author = function() {
   return Session.get('currentPostAuthor');
@@ -102,6 +158,8 @@ Template.showPost.screenName = function() {
 Template.showPost.content = function() {
   Session.set('currentPostContent', "loading...");
   Session.set('currentPostContent', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).content);
+  //we sneak the id of the post into the page, since we need it later. really has nothing to do with the author
+  Session.set('currentPostId', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))})._id);
   return Session.get('currentPostContent');
 };
 

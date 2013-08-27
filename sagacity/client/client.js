@@ -70,6 +70,8 @@ Template.editor.events({
       console.log("waiting for callback");
       console.log(data);
       var author = Meteor.user().services.twitter.screenName;
+      localStorage.title = "";
+      localStorage.editor = "";
       Meteor.Router.to('/' + author + '/' + escape(title));
     });
   },

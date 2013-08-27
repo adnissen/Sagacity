@@ -10,7 +10,7 @@ Template.editor.rendered = function() {
     new Medium({
       element: document.getElementById('editor'),
       modifier: 'auto',
-      placeholder: "This is Sagacity, a simple writing platform. To get going, just start typing. It supports all your favorite keyboard shortcuts too!",
+      placeholder: "This is Sagacity, a simple writing platform. To get going, just start typing. It supports all your favorite keyboard shortcuts too! If you're on a modern browser, your content will save automatically and be waiting for you when you come back!",
       autofocus: false,
       autoHR: true,
       mode: 'rich',
@@ -38,6 +38,18 @@ Template.editor.rendered = function() {
       maxLength: 25,
       placeholder: 'Sagacity. Your Title'
     });
+    if(typeof(Storage)!=="undefined")
+    {
+      if (localStorage.editor !== "" || localStorage.title !== "")
+      {
+        $('#title').html(localStorage.title);
+        $('#editor').html(localStorage.editor);
+      }
+    }
+    else
+    {
+    // Sorry! No web storage support..
+    }
   }
 };
 
@@ -60,6 +72,14 @@ Template.editor.events({
       var author = Meteor.user().services.twitter.screenName;
       Meteor.Router.to('/' + author + '/' + escape(title));
     });
+  },
+
+  'keyup' : function () {
+    if(typeof(Storage)!=="undefined")
+    {
+      localStorage.title = $('#title').html();
+      localStorage.editor = $('#editor').html();
+    }
   }
 });
 

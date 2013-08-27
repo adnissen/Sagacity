@@ -1,15 +1,14 @@
-if (typeof Handlebars !== 'undefined') {
-  Handlebars.registerHelper('afterBody', function(name, options) {
-
-  });
-}
+Meteor.autosubscribe(function () {
+  Meteor.subscribe("directory");
+  Meteor.subscribe("posts");
+});
 
 Template.editor.rendered = function() {
 
 };
 
 Template.editor.isLoggedIn = function() {
-  return (Meteor.userId() !== null);
+  return (Meteor.user() !== null);
 };
 
 Template.editor.profileImage = function() {

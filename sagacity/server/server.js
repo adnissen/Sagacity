@@ -1,7 +1,7 @@
 Posts = new Meteor.Collection("posts");
 
 Meteor.publish("directory", function(){
-  return Meteor.users.find({_id: this.userId}, {fields: {'services': 1}});
+  return Meteor.users.find({}, {fields: {'services': 1}});
 });
 
 Meteor.publish("posts", function() {
@@ -12,10 +12,10 @@ Meteor.methods({
   publishPost: function(_title, _content){
     if (Meteor.user() !== null)
     {
-      var _author = Meteor.user()._id;
+      var _author = escape(Meteor.user().profile.name);
       var time = new Date();
       var timestamp = time.getTime();
-      Posts.insert({title: _title, urlsafetitle: encode(_title), content: _content, author: _author, time: timestamp});
+      Posts.insert({title: _title, urlsafetitle: escape(_title), content: _content, author: _author, time: timestamp});
     }
   }
 });

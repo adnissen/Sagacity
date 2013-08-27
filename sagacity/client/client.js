@@ -11,3 +11,8 @@ Template.editor.rendered = function() {
 Template.editor.isLoggedIn = function() {
   return (Meteor.userId());
 };
+
+Template.editor.profileImage = function() {
+  if (Meteor.user())
+    return Meteor.user().services.twitter.profile_image_url;
+};

@@ -5,7 +5,41 @@ Meteor.autosubscribe(function () {
 });
 
 Template.editor.rendered = function() {
-
+  if (Meteor.user() !== null)
+  {
+    new Medium({
+      debug: false,
+      element: document.getElementById('editor'),
+      modifier: 'auto',
+      placeholder: "Write!",
+      autofocus: false,
+      autoHR: true,
+      mode: 'rich',
+      maxLength: -1,
+      modifiers: {
+          66: 'bold',
+          73: 'italicize',
+          85: 'underline',
+          86: 'paste'
+      },
+      tags: {
+          paragraph: 'p',
+          outerLevel: ['pre','blockquote', 'figure', 'hr'],
+          innerLevel: ['a', 'b', 'u', 'i', 'img', 'strong']
+      },
+      cssClasses: {
+          editor: 'Medium',
+          pasteHook: 'Medium-paste-hook',
+          placeholder: 'Medium-placeholder'
+      } 
+    });
+    new Medium({
+      element: document.getElementById('title'),
+      mode: 'inline',
+      maxLength: 25,
+      placeholder: 'Your Title'
+    });
+  }
 };
 
 Template.editor.isLoggedIn = function() {

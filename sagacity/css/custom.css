@@ -5,11 +5,12 @@
 }
 
 .editor {
-  min-height: 40px;
+  min-height: 100px !important;
   outline: 0px solid transparent;
 }
 
 .title {
+  min-height: 30px !important;
   outline: 0px solid transparent;
 }
 

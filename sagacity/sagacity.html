@@ -23,8 +23,8 @@
   {{/if}}
   {{loginButtons}}
   <br>
-  <div id="title">
-  <h2 class="title" contenteditable="{{isLoggedIn}}">Sagacity. Your title.</h2>
+  <div>
+  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. Your title.</h2>
   </div>
   <div id="editor" class="editor" contenteditable="{{isLoggedIn}}">
 
@@ -34,6 +34,7 @@
     <p class="editorP">This is Sagacity, a simple writing platform designed to get out of your way and let you write. All you have to do is delete this text and start writing.</p>
   </div>
   {{#if isLoggedIn}}
+  <br><br>
   <button class="minimal">Publish</button>
   {{/if}}
 </template>

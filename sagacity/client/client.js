@@ -25,6 +25,12 @@ Template.showPost.title = function() {
   return Session.get('currentPostTitle');
 };
 
+Template.showPost.screenName = function() {
+  Session.set('currentPostScreenName', "loading...");
+  Session.set('currentPostScreenName', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).name);
+  return Session.get('currentPostScreenName');
+};
+
 Template.showPost.content = function() {
   Session.set('currentPostContent', "loading...");
   Session.set('currentPostContent', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).content);

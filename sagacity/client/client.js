@@ -7,3 +7,7 @@ if (typeof Handlebars !== 'undefined') {
 Template.editor.rendered = function() {
 
 };
+
+Template.editor.isLoggedIn = function() {
+  return (Meteor.userId());
+};

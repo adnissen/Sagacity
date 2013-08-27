@@ -16,6 +16,9 @@ Meteor.methods({
       var time = new Date();
       var timestamp = time.getTime();
       Posts.insert({title: _title, urlsafetitle: escape(_title), content: _content, author: _author, time: timestamp, name: Meteor.user().profile.name});
+      var ret = {};
+      ret.author = _author;
+      return ret;
     }
   }
 });

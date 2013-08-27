@@ -8,7 +8,6 @@ Template.editor.rendered = function() {
   if (Meteor.user() !== null)
   {
     new Medium({
-      debug: false,
       element: document.getElementById('editor'),
       modifier: 'auto',
       placeholder: "Write!",
@@ -31,7 +30,7 @@ Template.editor.rendered = function() {
           editor: 'Medium',
           pasteHook: 'Medium-paste-hook',
           placeholder: 'Medium-placeholder'
-      } 
+      }
     });
     new Medium({
       element: document.getElementById('title'),
@@ -50,6 +49,19 @@ Template.editor.profileImage = function() {
   if (Meteor.user())
     return Meteor.user().services.twitter.profile_image_url;
 };
+
+Template.editor.events({
+  'click button.minimal': function () {
+    var title = $('#title').text();
+    var content = $('#editor').text();
+    Meteor.call("publishPost", title, content, function (data, err){
+      console.log("waiting for callback");
+      console.log(data);
+      var author = Meteor.user().services.twitter.screenName;
+      Meteor.Router.to('/' + author + '/' + escape(title));
+    });
+  }
+});
 
 Template.showPost.author = function() {
   return Session.get('currentPostAuthor');

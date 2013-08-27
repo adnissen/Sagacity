@@ -9,6 +9,10 @@
   outline: 0px solid transparent;
 }
 
+.title {
+  outline: 0px solid transparent;
+}
+
 .editorP { 
   min-height: 40px;
 }

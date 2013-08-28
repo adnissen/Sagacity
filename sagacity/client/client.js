@@ -103,7 +103,7 @@ Template.showPost.events({
 
   'click button.minimal.btnDelete': function () {
     var confirm = window.confirm("Are you sure you want to delete this post? This cannot be undone later.");
-    if (confirm == true){
+    if (confirm === true){
       Meteor.call("deletePost", Session.get('currentPostId'));
       Meteor.Router.to('/' + Meteor.user().services.twitter.screenName);
     }

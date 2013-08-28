@@ -1,7 +1,11 @@
 Posts = new Meteor.Collection("posts");
 
 Meteor.publish("directory", function(){
-  return Meteor.users.find({}, {fields: {'services': 1}});
+  return Meteor.users.find({_id: this.userId}, {fields: {'services': 1}});
+});
+
+Meteor.publish("restrictiveUsers", function() {
+  return Meteor.users.find({});
 });
 
 Meteor.publish("posts", function() {

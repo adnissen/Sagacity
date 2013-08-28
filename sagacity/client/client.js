@@ -1,6 +1,7 @@
 Posts = new Meteor.Collection("posts");
 Meteor.autosubscribe(function () {
   Meteor.subscribe("directory");
+  Meteor.subscribe("restrictiveUsers");
   Meteor.subscribe("posts");
 });
 

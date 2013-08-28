@@ -11,7 +11,7 @@ Template.editor.rendered = function() {
     new Medium({
       element: document.getElementById('editor'),
       modifier: 'auto',
-      placeholder: "This is Sagacity, a simple writing platform. To get going, just start typing. It supports all your favorite keyboard shortcuts too! If you're on a modern browser, your content will save automatically and be waiting for you when you come back!",
+      placeholder: "",
       autofocus: false,
       autoHR: true,
       mode: 'rich',
@@ -37,7 +37,7 @@ Template.editor.rendered = function() {
       element: document.getElementById('title'),
       mode: 'inline',
       maxLength: 25,
-      placeholder: 'Sagacity. Your Title'
+      placeholder: ''
     });
     if(typeof(Storage)!=="undefined")
     {

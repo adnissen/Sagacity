@@ -4,12 +4,12 @@ Meteor.publish("directory", function(){
   return Meteor.users.find({_id: this.userId}, {fields: {'services': 1}});
 });
 
-Meteor.publish("restrictiveUsers", function() {
-  return Meteor.users.find({});
+Meteor.publish("restrictiveUsers", function(user) {
+  return Meteor.users.find({'services.twitter.screenName': user});
 });
 
-Meteor.publish("posts", function() {
-  return Posts.find();
+Meteor.publish("posts", function(user) {
+  return Posts.find({author: user});
 });
 
 Meteor.methods({

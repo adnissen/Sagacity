@@ -5,6 +5,8 @@ Meteor.Router.add({
   },
 
   '/:author': function(author){
+    Meteor.subscribe("restrictiveUsers", author);
+    Meteor.subscribe("posts", author);
     if (Meteor.users.find({'services.twitter.screenName': author}).count() !== 0)
     {
       Session.set('currentAuthorPage', author);
@@ -19,6 +21,7 @@ Meteor.Router.add({
   },
 
   '/:author/:title': function(author, title){
+    Meteor.subscribe("posts", author);
     if (Posts.find({author: escape(author), urlsafetitle: escape(title)}).count() !== 0)
     {
       Session.set('currentPostAuthor', author);

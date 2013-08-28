@@ -38,6 +38,7 @@
             maxLength: -1,
             modifiers: {
                 66: 'bold',
+                76: 'link',
                 73: 'italicize',
                 85: 'underline',
                 86: 'paste'
@@ -425,6 +426,11 @@
                     utils.preventDefaultEvent(e);
                     // IE uses strong instead of b
                     d.execCommand( 'bold', false ); _log('Bold');
+                },
+                link: function(e){
+                    utils.preventDefaultEvent(e);
+                    var url = prompt("Type or paste the url: ", "");
+                    d.execCommand( 'CreateLink', false, url); _log('Link');
                 },
                 underline: function(e){
                     utils.preventDefaultEvent(e);

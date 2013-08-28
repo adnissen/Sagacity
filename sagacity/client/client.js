@@ -92,13 +92,21 @@ Template.editor.events({
 });
 
 Template.showPost.events({
-  'click button.minimal': function () {
+  'click button.minimal.btnUpdate': function () {
     var id = Session.get("currentPostId");
     var content = $('#content').html();
     Meteor.call("updatePost", id, content, function (data, err){
       var author = Meteor.user().services.twitter.screenName;
       Meteor.Router.to('/' + author + '/' + escape(Session.get('currentPostTitle')));
     });
+  },
+
+  'click button.minimal.btnDelete': function () {
+    var confirm = window.confirm("Are you sure you want to delete this post? This cannot be undone later.");
+    if (confirm == true){
+      Meteor.call("deletePost", Session.get('currentPostId'));
+      Meteor.Router.to('/' + Meteor.user().services.twitter.screenName);
+    }
   }
 });
 

@@ -40,5 +40,16 @@ Meteor.methods({
       else
         return "post not found";
     }
+  },
+
+  deletePost: function(_post) {
+    if (Meteor.user() !== null) {
+      var post = Posts.findOne({_id: _post});
+      if (post !== null){
+        if (post.author === Meteor.user().services.twitter.screenName){
+          Posts.remove({_id: _post});
+        }
+      }
+    }
   }
 });

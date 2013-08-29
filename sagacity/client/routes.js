@@ -15,8 +15,7 @@ Meteor.Router.add({
     }
     else
     {
-      document.title = "oops!";
-      return '404';
+      return 'load';
     }
   },
 
@@ -31,8 +30,7 @@ Meteor.Router.add({
     }
     else
     {
-      document.title = "oops!";
-      return '404';
+      return 'load';
     }
   },
 

@@ -13,10 +13,6 @@ Meteor.Router.add({
       document.title = author;
       return 'authorPage';
     }
-    else
-    {
-      return 'load';
-    }
   },
 
   '/:author/:title': function(author, title){
@@ -27,10 +23,6 @@ Meteor.Router.add({
       Session.set('currentPostTitle', title);
       document.title = title;
       return 'showPost';
-    }
-    else
-    {
-      return 'load';
     }
   },
 

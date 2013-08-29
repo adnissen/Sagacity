@@ -13,7 +13,7 @@ Template.editor.rendered = function() {
       modifier: 'auto',
       placeholder: "",
       autofocus: false,
-      autoHR: true,
+      autoHR: false,
       mode: 'rich',
       maxLength: -1,
       modifiers: {
@@ -119,7 +119,7 @@ Template.showPost.rendered = function () {
       modifier: 'auto',
       placeholder: "",
       autofocus: false,
-      autoHR: true,
+      autoHR: false,
       mode: 'rich',
       maxLength: -1,
       modifiers: {

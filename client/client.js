@@ -70,15 +70,21 @@ Template.editor.events({
     Meteor.call("publishPost", title, content, function (data, err){
       console.log("waiting for callback");
       console.log(data);
-      var author = Meteor.user().services.twitter.screenName;
-      //clear localStorage
-      //if they don't have it, there's nothing to be cleared because they suck
-      if(typeof(Storage)!=="undefined")
-      {
-        localStorage.title = "";
-        localStorage.editor = "";
+      console.log(err);
+      if (err === null){
+        var author = Meteor.user().services.twitter.screenName;
+        //clear localStorage
+        //if they don't have it, there's nothing to be cleared because they suck
+        if(typeof(Storage)!=="undefined")
+        {
+          localStorage.title = "";
+          localStorage.editor = "";
+        }
+        Meteor.Router.to('/' + author + '/' + escape(title));
       }
-      Meteor.Router.to('/' + author + '/' + escape(title));
+      else
+        alert("You already have a post with this name!");
+      
     });
   },
 

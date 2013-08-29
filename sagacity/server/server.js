@@ -17,6 +17,12 @@ Meteor.methods({
     if (Meteor.user() !== null)
     {
       var _author = escape(Meteor.user().services.twitter.screenName);
+      if (Posts.find({author: _author, title: _title}).count() !== 0)
+      {
+        throw new Meteor.Error(403, "That post already exists!");
+        return "stop";
+      }
+      
       var time = new Date();
       var timestamp = time.getTime();
       Posts.insert({title: _title, urlsafetitle: escape(_title), content: _content, author: _author, time: timestamp, name: Meteor.user().profile.name});

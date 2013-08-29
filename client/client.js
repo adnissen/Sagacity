@@ -67,11 +67,12 @@ Template.editor.events({
   'click button.minimal': function () {
     var title = $('#title').text();
     var content = $('#editor').html();
-    Meteor.call("publishPost", title, content, function (data, err){
+    Meteor.call("publishPost", title, content, function (err, data){
       console.log("waiting for callback");
-      console.log(data);
-      console.log(err);
-      if (err === null){
+      console.log("data: " + data);
+      console.log("err: " + err);
+      if (typeof err == 'undefined'){
+        console.log("clear");
         var author = Meteor.user().services.twitter.screenName;
         //clear localStorage
         //if they don't have it, there's nothing to be cleared because they suck

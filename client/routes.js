@@ -13,11 +13,6 @@ Meteor.Router.add({
       document.title = author;
       return 'authorPage';
     }
-    else
-    {
-      document.title = "oops!";
-      return '404';
-    }
   },
 
   '/:author/:title': function(author, title){
@@ -28,11 +23,6 @@ Meteor.Router.add({
       Session.set('currentPostTitle', title);
       document.title = title;
       return 'showPost';
-    }
-    else
-    {
-      document.title = "oops!";
-      return '404';
     }
   },
 

@@ -148,6 +148,8 @@ Template.showPost.isOwner = function() {
   {
     return (Meteor.user().services.twitter.screenName === Session.get('currentPostAuthor'));
   }
+  else
+    return false;
 };
 
 Template.showPost.author = function() {

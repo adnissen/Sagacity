@@ -1,0 +1,73 @@
+<head>
+  <title>sagacity</title>
+  <link href="medium.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+    body {
+     font-size: 20px;
+     line-height: 26px;
+     font-family: 'Lato', sans-serif;
+    }
+
+</head>
+
+<body>
+  <div class="container">
+    {{renderPage}}
+  </div>
+</body>
+
+<template name="editor">
+  {{#if isLoggedIn}}
+  <img src="{{profileImage}}">
+  {{/if}}
+  {{loginButtons}}
+  <br>
+  <div>
+  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. Your awesome title.</h2>
+  </div>
+  <div id="editor" class="editor" contenteditable="{{isLoggedIn}}">
+
+    {{#unless isLoggedIn}}
+    <p>You aren't logged in! In order to start using Sagacity, log in with your Twitter account above.</p>
+    {{/unless}}
+    <p class="editorP">Sagacity is an extremely minimal writing platform, designed to get out of your way and let you show your awesome content. In fact, it's so easy that all you have to do is log in with Twitter, delete this text, and start writing!</p>
+
+    <p>Sagacity supports all you need to get going quickly. You can <b>bold (cmd/ctrl + b), </b><i>italicize (cmd/ctrl + i), </i><u>underline (cmd/ctrl +u), </u><a href="#">link (highlight text + cmd/ctrl + l), </a><b><i><u><a href='#'>or do all 4.</a></u></i></b> Don't have time to finish writing? No problem, any changes you make to this text will be here waiting for you automatically when you come back. When you're done, just hit publish, and you'll be taken to your share-able post (oh, and you can edit that page directly too and just hit update to save the changes, no seperate editor required).</p>
+
+    <p>Sagacity is built to host and display your content, not steal it. <b>No featured posts, no advertising, no links to the homepage on your stuff.</b> All that's there is your words, Twitter handle, and a link to a simple page displaying all the cool things you've written on Sagacity.</p>
+
+    <p>If you think this is cool, why don't you <a href="/ambushsabre">check out what I've written lately?</a></p>
+  </div>
+  {{#if isLoggedIn}}
+  <br><br>
+  <button class="minimal">Publish</button>
+  {{/if}}
+</template>
+
+<template name="showPost">
+  <h2>{{title}}</h2>
+  <div id="content" class="content" contenteditable="{{isOwner}}">
+  {{{content}}}
+  </div>
+  {{#if isOwner}}
+  <br>
+  <button class="minimal btnUpdate">Update</button>
+  <button class="minimal btnDelete">Delete</button><br>
+  <br>
+  {{/if}}
+  <br>
+  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br><br>
+  <small><a href="/{{author}}">more from this author</a></small>
+</template>
+
+<template name="authorPage">
+  <h2>{{author}}</h2>
+  {{#each post}}
+  <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a><br>
+  {{/each}}
+</template>
+
+<template name="404">
+  <h2>oops! are you lost? go <a href="/">home</a></h2>
+</template>

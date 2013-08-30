@@ -118,6 +118,7 @@ Template.showPost.events({
 });
 
 Template.showPost.rendered = function () {
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   if (Meteor.user() !== null)
   {
     if (Meteor.user().services.twitter.screenName === Session.get('currentPostAuthor')){
@@ -171,6 +172,10 @@ Template.showPost.screenName = function() {
   Session.set('currentPostScreenName', "loading...");
   Session.set('currentPostScreenName', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).name);
   return Session.get('currentPostScreenName');
+};
+
+Template.showPost.pageUrl = function() {
+  return window.location.pathname;
 };
 
 Template.showPost.content = function() {

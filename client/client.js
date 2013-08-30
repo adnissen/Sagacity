@@ -117,8 +117,11 @@ Template.showPost.events({
   }
 });
 
-Template.showPost.rendered = function () {
+Template.showPost.created = function() {
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+}
+
+Template.showPost.rendered = function () {
   if (Meteor.user() !== null)
   {
     if (Meteor.user().services.twitter.screenName === Session.get('currentPostAuthor')){

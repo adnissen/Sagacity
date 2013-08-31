@@ -6,6 +6,10 @@
   color: #2A2A2A;
 }
 
+img {
+  max-width: 99%;
+}
+
 .editor {
   min-height: 100px !important;
   outline: 0px solid transparent;

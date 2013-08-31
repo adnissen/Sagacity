@@ -39,6 +39,7 @@
             modifiers: {
                 66: 'bold',
                 76: 'link',
+                75: 'image',
                 73: 'italicize',
                 85: 'underline',
                 86: 'paste'
@@ -465,6 +466,13 @@
                     utils.preventDefaultEvent(e);
                     var url = prompt("Type or paste the url: ", "");
                     d.execCommand( 'CreateLink', false, url); _log('Link');
+                },
+                image: function(e) {
+                    utils.preventDefaultEvent(e);
+                    var url = prompt("Type or paste the image url: ", "");
+                    d.execCommand( 'insertHTML', false, "&zwnj;");
+                    d.execCommand( 'insertImage', false, url); _log('Image');
+                    
                 },
                 underline: function(e){
                     utils.preventDefaultEvent(e);

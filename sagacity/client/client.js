@@ -67,6 +67,7 @@ Template.editor.events({
   'click button.minimal': function () {
     var title = $('#title').text();
     var content = $('#editor').html();
+    console.log(content);
     Meteor.call("publishPost", title, content, function (err, data){
       console.log("waiting for callback");
       console.log("data: " + data);
@@ -186,6 +187,7 @@ Template.showPost.content = function() {
   Session.set('currentPostContent', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))}).content);
   //we sneak the id of the post into the page, since we need it later. really has nothing to do with the author
   Session.set('currentPostId', Posts.findOne({author: escape(Session.get('currentPostAuthor')), urlsafetitle: escape(Session.get('currentPostTitle'))})._id);
+  console.log(Session.get('currentPostContent'));
   return Session.get('currentPostContent');
 };
 

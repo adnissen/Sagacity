@@ -1,9 +1,25 @@
-.container {
-  margin-top: 10%;
-  margin-left: 25%;
-  width: 50%;
-  line-height: 1.4;
-  color: #2A2A2A;
+
+@media (max-width: 640px)
+{
+  .container {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 10%;
+    width: 100%;
+    line-height: 1.4;
+    color: #2A2A2A;
+  }
+}
+
+@media (min-width: 641px)
+{
+  .container {
+    margin-top: 10%;
+    margin-left: 25%;
+    width: 50%;
+    line-height: 1.4;
+    color: #2A2A2A;
+  }
 }
 
 img {

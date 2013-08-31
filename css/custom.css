@@ -11,7 +11,7 @@
   }
 }
 
-@media handheld and (max-width: 980)
+@media handheld and (max-width: 980px)
 {
   .container {
     margin-right: 5px;
@@ -20,7 +20,6 @@
     width: 100%;
     line-height: 1.4;
     color: #2A2A2A;
-  }
 }
 
 @media (min-width: 641px)

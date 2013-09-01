@@ -64,7 +64,7 @@ Template.editor.profileImage = function() {
 };
 
 Template.editor.events({
-  'click button.minimal': function () {
+  'click button.minimal.btnPublish': function () {
     var title = $('#title').text();
     var content = $('#editor').html();
     console.log(content);
@@ -89,6 +89,15 @@ Template.editor.events({
       
     });
   },
+
+    'click button.help.btnHelp': function() {
+      var el = document.getElementById('helpModal');
+      if (el.style.visibility == "visible"){
+        el.style.visibility = "hidden";
+      }
+      else
+        el.style.visibility = "visible";
+      },
 
   'keyup' : function () {
     if(typeof(Storage)!=="undefined")

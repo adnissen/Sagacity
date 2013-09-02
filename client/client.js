@@ -36,7 +36,7 @@ Template.editor.rendered = function() {
     new Medium({
       element: document.getElementById('title'),
       mode: 'inline',
-      maxLength: 50,
+      maxLength: 100,
       placeholder: ''
     });
     if(typeof(Storage)!=="undefined")

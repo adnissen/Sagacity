@@ -24,9 +24,9 @@ h2 {
 #helpModal {
   visibility: hidden;
   position: fixed;
-  left: 25%;
+  left: 22.5%;
   top: 0px;
-  width: 50%;
+  width: 55%;
   margin: 0 auto;
   height: auto;
   padding-bottom: 25px;

@@ -1,13 +1,25 @@
-@media (min-width: 641px)
-{
-  .container {
-    margin-top: 10%;
-    margin-left: 25%;
-    width: 50%;
-    line-height: 1.4;
-    color: #2A2A2A;
-  }
+
+.container {
+  margin-top: 10%;
+  margin-left: 22.5%;
+  width: 55%;
+  line-height: 1.4;
+  color: #2A2A2A;
 }
+
+h1,h2,h3,h4,h5,h6,p {
+ font-family: inherit;
+ font-size: inherit;
+}
+h1 {
+ font-size: 2em;
+ line-height: 1em;
+}
+h2 {
+ font-size: 2em;
+ line-height: 1em;
+}
+
 
 #helpModal {
   visibility: hidden;

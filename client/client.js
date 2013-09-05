@@ -8,8 +8,9 @@ Meteor.autosubscribe(function () {
 if (typeof Handlebars !== 'undefined') {
   Handlebars.registerHelper('afterBody', function(name, options) {
     $('body').flowtype({
-     fontRatio : 50,
+     fontRatio : 55,
      minFont : 18,
+
      lineRatio : 1.45
     });
   });

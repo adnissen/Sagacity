@@ -1,13 +1,12 @@
-@media (min-width: 641px)
-{
-  .container {
-    margin-top: 10%;
-    margin-left: 25%;
-    width: 50%;
-    line-height: 1.4;
-    color: #2A2A2A;
-  }
+
+.container {
+  margin-top: 10%;
+  margin-left: 22.5%;
+  width: 55%;
+  line-height: 1.4;
+  color: #2A2A2A;
 }
+
 
 #helpModal {
   visibility: hidden;

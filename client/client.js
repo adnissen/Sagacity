@@ -5,6 +5,16 @@ Meteor.autosubscribe(function () {
   Meteor.subscribe("posts");
 });
 
+if (typeof Handlebars !== 'undefined') {
+  Handlebars.registerHelper('afterBody', function(name, options) {
+    $('body').flowtype({
+     fontRatio : 40,
+     minFont : 18,
+     lineRatio : 1.45
+    });
+  });
+}
+
 Template.editor.rendered = function() {
   if (Meteor.user() !== null)
   {
@@ -206,3 +216,4 @@ Template.authorPage.author = function () {
 Template.authorPage.post = function() {
   return Posts.find({author: Session.get('currentAuthorPage')}, {sort: {time: -1}});
 };
+

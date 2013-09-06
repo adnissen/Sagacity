@@ -24,6 +24,14 @@ Meteor.Router.add({
       document.title = title;
       return 'showPost';
     }
+    else if (Posts.find({author: escape(author), urlsafetitle: escape(title + ".")}).count() !== 0)
+    {
+      title = title + ".";
+      Session.set('currentPostAuthor', author);
+      Session.set('currentPostTitle', title);
+      document.title = title;
+      return 'showPost';
+    }
   },
 
   '*' : '404'

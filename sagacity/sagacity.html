@@ -30,20 +30,16 @@
   {{loginButtons}}
   <br>
   <div>
-  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. Your awesome title.</h2>
+  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. The awesome intro.</h2>
   </div>
   <div id="editor" class="editor" contenteditable="{{isLoggedIn}}">
 
-    {{#unless isLoggedIn}}
-    <p>You aren't logged in! In order to start using Sagacity, log in with your Twitter account above.</p>
-    {{/unless}}
-    <p class="editorP">Sagacity is an extremely minimal writing platform, designed to get out of your way and let you show your awesome content. In fact, it's so easy that all you have to do is log in with Twitter, delete this text, and start writing!</p>
+    
+    <p class="editorP">Sagacity is a minimal yet robust writing platform. Starting is easy- just log in with a Twitter account, delete this text and write a new title. The rest is up to you. Whether you want to type out a quick blog post or a treatise on Prussian military history, Sagacity makes sharing your ideas simple.</p>
 
-    <p>Sagacity supports all you need to get going quickly. You can <b>bold (cmd/ctrl + b), </b><i>italicize (cmd/ctrl + i), </i><u>underline (cmd/ctrl +u), </u><a href="#">link (highlight text + cmd/ctrl + l), </a><b><i><u><a href='#'>or do all 4.</a></u></i></b> (<b>PROTIP:</b> if you're on mobile, select some text and there should be options for b/i/u!) You can even add inline-images with <b>cmd/ctrl + k.</b> Don't have time to finish writing? No problem, any changes you make to this text will be here waiting for you automatically when you come back. When you're done, just hit publish, and you'll be taken to your share-able post (oh, and you can edit that page directly too and just hit update to save the changes, no seperate editor required).</p>
+    <p>To find out how to italicize, bold, add images and more, click the gray box in the upper-right corner. Whatever you write is saved, even if you leave and come back later. Once it's done, hit "Publish" and you'll be taken to a shareable version of your post You can also edit what you've written from there, all except the title.</p>
 
-    <p>Sagacity is built to host and display your content, not steal it. <b>No featured posts, no advertising, no links to the homepage on your stuff.</b> All that's there is your words, Twitter handle, and a link to a simple page displaying all the cool things you've written on Sagacity.</p>
-
-    <p>If you think this is cool, why don't you <a href="/ambushsabre">check out what I've written lately</a>, or send me an email at <a href="mailto:hello@sagacityapp.com">hello@sagacityapp.com?</a></p>
+    <p>Good luck! Get writing!</p>
   </div>
   {{#if isLoggedIn}}
   <br><br>

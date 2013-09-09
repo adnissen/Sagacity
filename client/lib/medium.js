@@ -254,7 +254,7 @@
                         innerText = utils.html.text(settings.element);
                     
                     // Empty Editer
-                    if( (innerText === "") || innerText === null) ){
+                    if( (innerText === "") || (innerText === null) ){
                         settings.element.innerHTML = '';
                         
                         // We need to add placeholders

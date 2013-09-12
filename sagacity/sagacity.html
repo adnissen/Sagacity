@@ -30,9 +30,9 @@
   {{loginButtons}}
   <br>
   <div>
-  <h2 id="title" class="title" contenteditable="{{isLoggedIn}}">Sagacity. The awesome intro.</h2>
+  <h2 id="title" class="title" contenteditable="true">Sagacity. The awesome intro.</h2>
   </div>
-  <div id="editor" class="editor" contenteditable="{{isLoggedIn}}">
+  <div id="editor" class="editor" contenteditable="true">
 
     
     <p class="editorP">Sagacity is a minimal yet robust writing platform. Starting is easy- just log in with a Twitter account, delete this text and write a new title. The rest is up to you. Whether you want to type out a quick blog post or a treatise on Prussian military history, Sagacity makes sharing your ideas simple.</p>
@@ -63,6 +63,13 @@
       <br>
       <br>
       (click the ? again to close this box)
+      <br>
+      Sagacity was made by <a href="http://adnissen.com">Andrew Nissen</a>
+      {{#unless isLoggedIn}}
+      <br>
+      <br>
+      In order to publish your changes, you must be logged in!
+      {{/unless}}
     </div>
   </div>
   </center>

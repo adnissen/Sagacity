@@ -17,6 +17,18 @@ if (typeof Handlebars !== 'undefined') {
 }
 
 Template.editor.rendered = function() {
+  if(typeof(Storage)!=="undefined")
+  {
+    if (localStorage.editor !== "" || localStorage.title !== "")
+    {
+      $('#title').html(localStorage.title);
+      $('#editor').html(localStorage.editor);
+    }
+  }
+  else
+  {
+  // Sorry! No web storage support..
+  }
   if (Meteor.user() !== null)
   {
     new Medium({
@@ -50,18 +62,6 @@ Template.editor.rendered = function() {
       maxLength: 100,
       placeholder: ''
     });
-    if(typeof(Storage)!=="undefined")
-    {
-      if (localStorage.editor !== "" || localStorage.title !== "")
-      {
-        $('#title').html(localStorage.title);
-        $('#editor').html(localStorage.editor);
-      }
-    }
-    else
-    {
-    // Sorry! No web storage support..
-    }
   }
 };
 

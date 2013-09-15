@@ -38,6 +38,7 @@
             maxLength: -1,
             modifiers: {
                 66: 'bold',
+		67: 'pre',
                 76: 'link',
                 75: 'image',
                 73: 'italicize',
@@ -457,6 +458,12 @@
                 action.preserveElementFocus();
             },
             command: {
+		pre: function(e){
+		    utils.preventDefaultEvent(e);
+		    d.execCommand('formatBlock', false, '<pre>');
+		    d.execCommand('formatBlock', false, '<code>');
+
+		},
                 bold: function(e){
                     utils.preventDefaultEvent(e);
                     // IE uses strong instead of b

@@ -4,6 +4,8 @@ Meteor.Router.add({
     return 'editor';
   },
 
+  '/tos': 'ToS',
+
   '/:author': function(author){
     Meteor.subscribe("restrictiveUsers", author);
     Meteor.subscribe("posts", author);
@@ -34,5 +36,6 @@ Meteor.Router.add({
     }
   },
 
+  
   '*' : '404'
 });

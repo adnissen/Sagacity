@@ -138,6 +138,41 @@ Template.showPost.events({
   }
 });
 
+Template.authorPage.events({
+  'click button.minimal.btnSubscribe': function() {
+    var author = Session.get("currentAuthorPage");
+    if (Meteor.user() !== null){
+      if (typeof Meteor.user().email !== 'undefined')
+        Meteor.call("subscribeToAuthor", author);
+      else{
+        var newMail = prompt("It doesn't look like your account has an email associated with it. If you want to subscribe to email updates for this author, enter it below:", "awesomedude@sagacityapp.com");
+        if (newMail !== null){
+          Meteor.call("changeEmail", newMail);
+          Meteor.call("subscribeToAuthor", author);
+        }
+      }
+    }
+  },
+  'click button.minimal.btnUnSubscribe': function() {
+    var author = Session.get("currentAuthorPage");
+    if (Meteor.user() !== null){
+      Meteor.call("unSubscribeFromAuthor", author);
+    }
+  }
+});
+
+Template.authorPage.isSubscribed = function() {
+  var author = Session.get("currentAuthorPage");
+  if (Meteor.user() !== null){
+    if (typeof Meteor.user().subscriptions !== 'undefined'){
+      if (Meteor.user().subscriptions.indexOf(author) !== -1)
+        return true;
+    }
+    else
+      return false;
+  }
+}
+
 Template.showPost.created = function() {
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 }
@@ -218,3 +253,14 @@ Template.authorPage.post = function() {
   return Posts.find({author: Session.get('currentAuthorPage')}, {sort: {time: -1}});
 };
 
+Template.authorPage.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+  {
+    if (Meteor.user().services.twitter.screenName === Session.get('currentAuthorPage'))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+};

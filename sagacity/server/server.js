@@ -1,7 +1,7 @@
 Posts = new Meteor.Collection("posts");
 
 Meteor.publish("directory", function(){
-  return Meteor.users.find({_id: this.userId}, {fields: {'services': 1}});
+  return Meteor.users.find({_id: this.userId}, {fields: {'services': 1, 'email': 1, 'subscriptions': 1, 'subscribers': 1}});
 });
 
 Meteor.publish("restrictiveUsers", function(user) {
@@ -59,6 +59,26 @@ Meteor.methods({
           Posts.remove({_id: _post});
         }
       }
+    }
+  },
+
+  subscribeToAuthor: function(author) {
+    if (Meteor.user() !== null){
+      Meteor.users.update({'services.twitter.screenName': author}, {$push: {subscribers: Meteor.user().email}});
+      Meteor.users.update({_id:Meteor.user()._id}, {$push: {subscriptions: author}});
+    }
+  },
+
+  unSubscribeFromAuthor: function(author){
+    if (Meteor.user() !== null){
+      Meteor.users.update({'services.twitter.screenName': author}, {$pull: {subscribers: Meteor.user().email}});
+      Meteor.users.update({_id:Meteor.user()._id}, {$pull: {subscriptions: author}});
+    }
+  },
+
+  changeEmail: function(mail){
+    if (Meteor.user() !== null){
+      Meteor.users.update({_id:Meteor.user()._id}, {$set: {email: mail}});
     }
   }
 });

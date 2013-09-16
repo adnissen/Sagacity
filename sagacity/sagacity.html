@@ -96,6 +96,13 @@
 
 <template name="authorPage">
   <h2>{{author}}</h2>
+  {{#if isLoggedIn}}
+  {{#unless isSubscribed}}
+  <button class="minimal btnSubscribe">e-mail me when this author publishes</button><br><br>
+  {{else}}
+  <button class="minimal btnUnSubscribe">unsubscribe from this author</button><br><br>
+  {{/unless}}
+  {{/if}}
   {{#each post}}
   <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a><br>
   {{/each}}

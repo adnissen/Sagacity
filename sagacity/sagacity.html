@@ -61,6 +61,7 @@
       <br>
       Insert Image: ctrl/cmd + k
       <br>
+      Click on your profile picture for additional settings
       <br>
       (click the ? again to close this box)
       <br>
@@ -121,4 +122,16 @@
   <h2>This is the terms of service.</h2>
   <p>lorem ipsum whatever whatever.</p>
   <p>I might want to have multiple p tags here, not sure yet.</p>
+</template>
+
+<template name="settings">
+  {{#if isLoggedIn}}
+  <h2>{{pageOwner}}</h2>
+  <h3>Settings</h3>
+  Email: <input id="email" type="text" name="email" value="{{email}}">
+  <p>Adding an email to your account is not required, but doing so will allow you to subscribe to authors and recieve emails when they post content. We will never ever sell or otherwise distribute your email, and we won't automatically subscribe you to any authors either.</p>
+  <button class="minimal btnUpdateSettings">Save</button><br><br>
+  {{else}}
+  <h2>Woah! You're not logged in, why don't you go back home and do that?</h2>
+  {{/if}}
 </template>

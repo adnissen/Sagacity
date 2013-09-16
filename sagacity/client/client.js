@@ -75,6 +75,9 @@ Template.editor.profileImage = function() {
 };
 
 Template.editor.events({
+  'click img': function (){
+    Meteor.Router.to('/settings');
+  },
   'click button.minimal.btnPublish': function () {
     var title = $('#title').text();
     var content = $('#editor').html();
@@ -264,3 +267,36 @@ Template.authorPage.isLoggedIn = function() {
   else
     return false;
 };
+
+Template.settings.pageOwner = function() {
+  if (Meteor.user() !== null)
+    if (Meteor.user())
+      return Meteor.user().profile.name;
+}
+
+Template.settings.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+    return true;
+  else
+    return false;
+}
+
+Template.settings.email = function() {
+  if (Meteor.user() !== null)
+  {
+    if (Meteor.user()){
+      if (typeof Meteor.user().email !== 'undefined')
+        return Meteor.user().email;
+      else
+        return "";
+    }
+  }
+}
+
+Template.settings.events({
+  'click button.minimal.btnUpdateSettings': function () {
+    var newMail = document.getElementById('email').value;
+    Meteor.call("changeEmail", newMail);
+    Meteor.Router.to('/');
+  }
+});

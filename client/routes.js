@@ -6,6 +6,8 @@ Meteor.Router.add({
 
   '/tos': 'ToS',
 
+  '/settings': 'settings',
+
   '/:author': function(author){
     Meteor.subscribe("restrictiveUsers", author);
     Meteor.subscribe("posts", author);

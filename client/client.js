@@ -75,6 +75,9 @@ Template.editor.profileImage = function() {
 };
 
 Template.editor.events({
+  'click img': function (){
+    Meteor.Router.to('/settings');
+  },
   'click button.minimal.btnPublish': function () {
     var title = $('#title').text();
     var content = $('#editor').html();
@@ -138,9 +141,44 @@ Template.showPost.events({
   }
 });
 
+Template.authorPage.events({
+  'click button.minimal.btnSubscribe': function() {
+    var author = Session.get("currentAuthorPage");
+    if (Meteor.user() !== null){
+      if (typeof Meteor.user().email !== 'undefined')
+        Meteor.call("subscribeToAuthor", author);
+      else{
+        var newMail = prompt("Subscribe to an author to recieve email updates whenever they publish. It doesn't look like you have an email associated with your account yet. If you want to subscribe, please enter it below (you can change this any time by going to sagacityapp.com/settings or clicking on your profile picture):", "awesomedude@sagacityapp.com");
+        if (newMail !== null){
+          Meteor.call("changeEmail", newMail);
+          Meteor.call("subscribeToAuthor", author);
+        }
+      }
+    }
+  },
+  'click button.minimal.btnUnSubscribe': function() {
+    var author = Session.get("currentAuthorPage");
+    if (Meteor.user() !== null){
+      Meteor.call("unSubscribeFromAuthor", author);
+    }
+  }
+});
+
+Template.authorPage.isSubscribed = function() {
+  var author = Session.get("currentAuthorPage");
+  if (Meteor.user() !== null){
+    if (typeof Meteor.user().subscriptions !== 'undefined'){
+      if (Meteor.user().subscriptions.indexOf(author) !== -1)
+        return true;
+    }
+    else
+      return false;
+  }
+};
+
 Template.showPost.created = function() {
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-}
+};
 
 Template.showPost.rendered = function () {
   if (Meteor.user() !== null)
@@ -218,3 +256,47 @@ Template.authorPage.post = function() {
   return Posts.find({author: Session.get('currentAuthorPage')}, {sort: {time: -1}});
 };
 
+Template.authorPage.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+  {
+    if (Meteor.user().services.twitter.screenName === Session.get('currentAuthorPage'))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+};
+
+Template.settings.pageOwner = function() {
+  if (Meteor.user() !== null)
+    if (Meteor.user())
+      return Meteor.user().profile.name;
+};
+
+Template.settings.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+    return true;
+  else
+    return false;
+};
+
+Template.settings.email = function() {
+  if (Meteor.user() !== null)
+  {
+    if (Meteor.user()){
+      if (typeof Meteor.user().email !== 'undefined')
+        return Meteor.user().email;
+      else
+        return "";
+    }
+  }
+};
+
+Template.settings.events({
+  'click button.minimal.btnUpdateSettings': function () {
+    var newMail = document.getElementById('email').value;
+    Meteor.call("changeEmail", newMail);
+    Meteor.Router.to('/');
+  }
+});

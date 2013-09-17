@@ -1,6 +1,3 @@
-Meteor.startup(function () {
- process.env.MAIL_URL = 'smtp://postmaster@sagacityapp.com:4d7q9u04kiv7@smtp.mailgun.org:587';});
-
 Posts = new Meteor.Collection("posts");
 
 Meteor.publish("directory", function(){
@@ -20,6 +17,7 @@ Meteor.methods({
     if (Meteor.user() !== null)
     {
       var _author = escape(Meteor.user().services.twitter.screenName);
+      _title = _title.replace(/^\s+|\s+$/g,'');
       if (Posts.find({author: _author, title: _title}).count() !== 0)
       {
         console.log("already exists: " + author + title);

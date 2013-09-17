@@ -19,7 +19,7 @@ Meteor.methods({
       var _author = escape(Meteor.user().services.twitter.screenName);
       if (Posts.find({author: _author, title: _title}).count() !== 0)
       {
-        console.log("already exists: " + author + title); 
+        console.log("already exists: " + author + title);
         throw new Meteor.Error(403, "That post already exists!");
         //return "stop";
       }
@@ -30,6 +30,14 @@ Meteor.methods({
         Posts.insert({title: _title, urlsafetitle: escape(_title), content: _content, author: _author, time: timestamp, name: Meteor.user().profile.name});
         var ret = {};
         ret.author = _author;
+        
+        //check to see if the author has any subscribers
+        var authorObj = Meteor.users.findOne({'services.twitter.screenName': _author});
+        if (typeof authorObj.subscribers !== 'undefined'){
+          var _subject = "Sagacity: \"" + _title + "\" by " + Meteor.user().profile.name;
+          var _text = Meteor.user().profile.name + " has just published \"" + _title + "\". Read it at http://sagacityapp.com/" + _author + "/" + escape(_title) + "\n\n\n\n - The Sagacity Team\nhttp://sagacityapp.com/";
+          Email.send({to:authorObj.subscribers, from:'subscriptions@sagacityapp.com', subject: _subject, text:_text});
+        }
         return ret;
       }
     }
@@ -78,7 +86,13 @@ Meteor.methods({
 
   changeEmail: function(mail){
     if (Meteor.user() !== null){
-      Meteor.users.update({_id:Meteor.user()._id}, {$set: {email: mail}});
+      if (Meteor.users.find({email: mail}).count() === 0){
+        if (typeof Meteor.user().email != 'undefined'){
+          var oldMail = Meteor.user().email;
+          Meteor.users.update({"subscribers": oldMail}, {$set: {"subscribers.$": mail}}, {multi:true});
+        }
+        Meteor.users.update({_id:Meteor.user()._id}, {$set: {email: mail}});
+      }
     }
   }
 });

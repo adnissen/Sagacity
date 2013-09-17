@@ -148,7 +148,7 @@ Template.authorPage.events({
       if (typeof Meteor.user().email !== 'undefined')
         Meteor.call("subscribeToAuthor", author);
       else{
-        var newMail = prompt("It doesn't look like your account has an email associated with it. If you want to subscribe to email updates for this author, enter it below:", "awesomedude@sagacityapp.com");
+        var newMail = prompt("Subscribe to an author to recieve email updates whenever they publish. It doesn't look like you have an email associated with your account yet. If you want to subscribe, please enter it below (you can change this any time by going to sagacityapp.com/settings or clicking on your profile picture):", "awesomedude@sagacityapp.com");
         if (newMail !== null){
           Meteor.call("changeEmail", newMail);
           Meteor.call("subscribeToAuthor", author);
@@ -174,11 +174,11 @@ Template.authorPage.isSubscribed = function() {
     else
       return false;
   }
-}
+};
 
 Template.showPost.created = function() {
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-}
+};
 
 Template.showPost.rendered = function () {
   if (Meteor.user() !== null)
@@ -272,14 +272,14 @@ Template.settings.pageOwner = function() {
   if (Meteor.user() !== null)
     if (Meteor.user())
       return Meteor.user().profile.name;
-}
+};
 
 Template.settings.isLoggedIn = function() {
   if (Meteor.user() !== null)
     return true;
   else
     return false;
-}
+};
 
 Template.settings.email = function() {
   if (Meteor.user() !== null)
@@ -291,7 +291,7 @@ Template.settings.email = function() {
         return "";
     }
   }
-}
+};
 
 Template.settings.events({
   'click button.minimal.btnUpdateSettings': function () {

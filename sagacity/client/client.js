@@ -96,6 +96,7 @@ Template.editor.events({
           localStorage.title = "";
           localStorage.editor = "";
         }
+        title = title.replace(/^\s+|\s+$/g,'');
         Meteor.Router.to('/' + author + '/' + escape(title));
       }
       else

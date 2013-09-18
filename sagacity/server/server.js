@@ -17,6 +17,7 @@ Meteor.methods({
     if (Meteor.user() !== null)
     {
       var _author = escape(Meteor.user().services.twitter.screenName);
+      _title = _title.replace(/^\s+|\s+$/g,'');
       if (Posts.find({author: _author, title: _title}).count() !== 0)
       {
         console.log("already exists: " + author + title);

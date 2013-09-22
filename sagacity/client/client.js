@@ -397,3 +397,12 @@ Template.showCollection.events({
 
   }
 });
+
+Template.newCollectionPage.rendered = function () {
+  new Medium({
+      element: document.getElementById('newCollection'),
+      mode: 'inline',
+      maxLength: 50,
+      placeholder: ''
+    });
+};

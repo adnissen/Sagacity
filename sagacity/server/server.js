@@ -1,4 +1,5 @@
 Posts = new Meteor.Collection("posts");
+Collections = new Meteor.Collection("collections");
 
 Meteor.publish("directory", function(){
   return Meteor.users.find({_id: this.userId}, {fields: {'services': 1, 'email': 1, 'subscriptions': 1, 'subscribers': 1}});
@@ -12,7 +13,60 @@ Meteor.publish("posts", function(user) {
   return Posts.find({author: user});
 });
 
+Meteor.publish("ownCollections", function(user){
+  return Collections.find({owner: user});
+});
+
+Meteor.publish("collections", function(_name){
+  return Collections.find({name: _name});
+});
+
+Meteor.publish("collectionPosts", function(_colName, _owner){
+  var col = Collections.findOne({owner: _owner, name: _colName});
+  return Posts.find({_id: {$in: col.posts}});
+});
+
 Meteor.methods({
+  createCollection: function(_title){
+    if (Meteor.user() !== null){
+      if (Collections.find({owner: Meteor.user().services.twitter.screenName, name: _title}).count() === 0){
+        //so they haven't already published a collection with this title
+        Collections.insert({owner: Meteor.user().services.twitter.screenName, name:_title, posts: []});
+      }
+    }
+  },
+  deleteCollection: function(_title){
+    if (Meteor.user() !== null){
+      if (Collections.find({owner: Meteor.user().services.twitter.screenName, name: _title}).count() !== 0){
+        //it exists! kill it!
+        Collections.remove({owner: Meteor.user().services.twitter.screenName, name: _title});
+      }
+    }
+  },
+  addToCollection: function(_name, _postId){
+    if (Meteor.user() !== null){
+      if (Collections.find({owner: Meteor.user().services.twitter.screenName, name: _name}).count() !== 0){
+        //it exists, so lets grab it so we can do things to it 
+        var col = Collections.findOne({owner: Meteor.user().services.twitter.screenName, name: _name});
+        if (col.posts.indexOf(_postId) === -1){
+          //this hasn't already been added to the collection, so we're free to add it
+          Collections.update({owner: Meteor.user().services.twitter.screenName, name: _name}, {$push: {posts: _postId}});
+        }
+      }
+    }
+  },
+  removeFromCollection: function(_name, _postId){
+    if (Meteor.user() !== null){
+      if (Collections.find({owner: Meteor.user().services.twitter.screenName, name: _name}).count() !== 0){
+        //it exists, so lets grab it so we can do things to it 
+        var col = Collections.findOne({owner: Meteor.user().services.twitter.screenName, name: _name});
+        if (col.posts.indexOf(_postId) !== -1){
+          //the post is indeed part of the array
+          Collections.update({owner: Meteor.user().services.twitter.screenName, name: _name}, {$pull: {posts: _postId}});
+        }
+      }
+    }
+  },
   publishPost: function(_title, _content){
     if (Meteor.user() !== null)
     {

@@ -1,8 +1,12 @@
 Posts = new Meteor.Collection("posts");
+Collections = new Meteor.Collection("collections");
 Meteor.autosubscribe(function () {
   Meteor.subscribe("directory");
   Meteor.subscribe("restrictiveUsers");
   Meteor.subscribe("posts");
+  Meteor.subscribe("ownCollections");
+  Meteor.subscribe("collections");
+  //Meteor.subscribe("collectionPosts");
 });
 
 if (typeof Handlebars !== 'undefined') {
@@ -76,7 +80,7 @@ Template.editor.profileImage = function() {
 
 Template.editor.events({
   'click img': function (){
-    Meteor.Router.to('/settings');
+    Meteor.Router.to('/' + Meteor.user().services.twitter.screenName);
   },
   'click button.minimal.btnPublish': function () {
     var title = $('#title').text();
@@ -105,7 +109,7 @@ Template.editor.events({
     });
   },
 
-    'click button.help.btnHelp': function() {
+    'click i.iHelp.icon-question-sign': function() {
       var el = document.getElementById('helpModal');
       if (el.style.visibility == "visible"){
         el.style.visibility = "hidden";
@@ -113,6 +117,18 @@ Template.editor.events({
       else
         el.style.visibility = "visible";
       },
+
+  'click i.iNewCollection.icon-briefcase': function() {
+    Meteor.Router.to('/collections/new');
+  },
+
+  'click i.iSettings.icon-gears': function() {
+    Meteor.Router.to('/settings');
+  },
+
+  'click i.iUser.icon-user': function() {
+    Meteor.Router.to('/' + Meteor.user().services.twitter.screenName);
+  },
 
   'keyup' : function () {
     if(typeof(Storage)!=="undefined")
@@ -139,6 +155,11 @@ Template.showPost.events({
       Meteor.call("deletePost", Session.get('currentPostId'));
       Meteor.Router.to('/' + Meteor.user().services.twitter.screenName);
     }
+  },
+
+  'click button.minimal.btnAddToCollection': function() {
+    Meteor.call("addToCollection", $('#selectedCollection').find(":selected").text(), Session.get('currentPostId'));
+    //Meteor.Router.to('/collections' + Meteor.user().services.twitter.screenName)
   }
 });
 
@@ -177,8 +198,35 @@ Template.authorPage.isSubscribed = function() {
   }
 };
 
+Template.authorPage.collection = function(){
+  Meteor.subscribe("ownCollections", Session.get('currentAuthorPage'));
+  return Collections.find();
+};
+
+Template.authorPage.doesOwnCollections = function() {
+  Meteor.subscribe("ownCollections", Meteor.user().services.twitter.screenName);
+  return Collections.find().count();
+};
+
+Template.showPost.doesOwnCollections = function() {
+  Meteor.subscribe("ownCollections", Meteor.user().services.twitter.screenName);
+  return Collections.find({posts: {$ne: Session.get("currentPostId")}}).count();
+};
+
 Template.showPost.created = function() {
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+};
+
+Template.showPost.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+    return true;
+  else
+    return false;
+};
+
+Template.showPost.collection = function(){
+  Meteor.subscribe("ownCollections", Meteor.user().services.twitter.screenName);
+  return Collections.find({posts: {$ne: Session.get("currentPostId")}});
 };
 
 Template.showPost.rendered = function () {
@@ -301,3 +349,60 @@ Template.settings.events({
     Meteor.Router.to('/');
   }
 });
+
+Template.newCollectionPage.events({
+  'click button.minimal.btnNewCollection': function () {
+    var title = $('#newCollection').text();
+    Meteor.call("createCollection", title);
+    Meteor.Router.to('/collections/' + Meteor.user().services.twitter.screenName + '/' + escape(title));
+  }
+});
+
+Template.newCollectionPage.isLoggedIn = function() {
+  if (Meteor.user() !== null)
+    return true;
+  else
+    return false;
+};
+
+Template.showCollection.collectionName = function() {
+  return Session.get("currentCollectionTitle");
+};
+
+Template.showCollection.owner = function() {
+  return Session.get("currentCollectionAuthor");
+};
+
+Template.showCollection.isOwner = function() {
+  return (Meteor.user().services.twitter.screenName == Session.get("currentCollectionAuthor"));
+};
+
+Template.showCollection.posts = function() {
+  Meteor.subscribe("collectionPosts", Session.get("currentCollectionTitle"), Session.get("currentCollectionAuthor"));
+  //this needs to only be finding the posts inside the current collection
+  var col = Collections.findOne({owner: Session.get("currentCollectionAuthor"), name: Session.get("currentCollectionTitle")});
+  return Posts.find({_id: {$in :col.posts}});
+};
+
+Template.showCollection.events({
+  'click button.minimal.btnDelete': function () {
+    Meteor.call("deleteCollection", Session.get("currentCollectionTitle"));
+    Meteor.Router.to("/" + Meteor.user().services.twitter.screenName);
+  },
+
+  'click i.icon-remove-sign': function() {
+    Meteor.call("removeFromCollection", Session.get("currentCollectionTitle"), this._id, function(err, data){
+      Deps.flush();
+    });
+
+  }
+});
+
+Template.newCollectionPage.rendered = function () {
+  new Medium({
+      element: document.getElementById('newCollection'),
+      mode: 'inline',
+      maxLength: 50,
+      placeholder: ''
+    });
+};

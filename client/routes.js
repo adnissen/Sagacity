@@ -8,6 +8,8 @@ Meteor.Router.add({
 
   '/settings': 'settings',
 
+  '/collections/new': 'newCollectionPage',
+
   '/:author': function(author){
     Meteor.subscribe("restrictiveUsers", author);
     Meteor.subscribe("posts", author);
@@ -35,6 +37,18 @@ Meteor.Router.add({
       Session.set('currentPostTitle', title);
       document.title = title;
       return 'showPost';
+    }
+  },
+
+  '/collections/:author/:name': function(author, name){
+    Meteor.subscribe("ownCollections", Meteor.user());
+    Meteor.subscribe("collections", name);
+    name = unescape(name);
+    if (Collections.find({owner: author, name: name}).count() === 1){
+      document.title = name;
+      Session.set("currentCollectionTitle", name);
+      Session.set("currentCollectionAuthor", author);
+      return 'showCollection';
     }
   },
 

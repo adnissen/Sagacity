@@ -10,6 +10,9 @@
      font-size: 20px;
      line-height: 26px;
      font-family: 'Lato', sans-serif;
+     //border-top-style:solid;
+     //border-top-width:5px;
+     //border-top-color: #3498db;
     }
   </style>
 </head>
@@ -46,7 +49,12 @@
   <button class="minimal btnPublish">Publish</button>
   {{/if}}
 
-  <button class="help btnHelp">?</button>
+  <i class="iHelp icon-question-sign"></i>
+  {{#if isLoggedIn}}
+  <i class="iUser icon-user"></i>
+  <i class="iNewCollection icon-briefcase"></i>
+  <i class="iSettings icon-gears"></i>
+  {{/if}}
   <center>
   <div id="helpModal">
     <div>
@@ -89,10 +97,19 @@
   {{/if}}
   <a href="https://twitter.com/share?text=&quot;{{title}}&quot; by @{{author}}&count=none" class="twitter-share-button" data-url="http://sagacityapp.com{{pageUrl}}" data-lang="en">Tweet</a>
   <br>
-  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br><br>
-  <small><a href="/{{author}}">More From This Author</a></small><br>
-
-  <small><a href="/">Start Writing on Sagacity</a></small>
+  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br>
+  <small><a href="/{{author}}">More From This Author</a></small><br><br>
+  {{#if isLoggedIn}}
+  {{#if doesOwnCollections}}
+  <small>Add This Post to a Collection</small><br>
+  <select id="selectedCollection">
+  {{#each collection}}
+  <option value="{{name}}">{{name}}</option>
+  {{/each}}
+  </select><br><button class="minimal btnAddToCollection">Add</button><br><br>
+  {{/if}}
+  {{/if}}
+  <small><a href="/">Start Writing on Sagacity</a></small><br>
 </template>
 
 <template name="authorPage">
@@ -107,6 +124,12 @@
   {{#each post}}
   <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a><br>
   {{/each}}
+  {{#if doesOwnCollections}}
+  <br><h3>Collections:</h3>
+  {{#each collection}}
+  <a href="/collections/{{author}}/{{name}}">{{name}}</a><br>
+  {{/each}}
+  {{/if}}
 </template>
 
 <template name="404">
@@ -133,5 +156,32 @@
   <button class="minimal btnUpdateSettings">Save</button><br><br>
   {{else}}
   <h2>Woah! You're not logged in, why don't you go back home and do that?</h2>
+  {{/if}}
+</template>
+
+<template name="showCollection">
+  <h2>{{collectionName}}</h2>
+  <h3>a collection by {{owner}}</h3>
+  {{#each posts}}
+  {{#if isOwner}}
+  <i class="icon-remove-sign"></i>
+  {{/if}}
+  <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a> by <a href="http://twitter.com/{{author}}">@{{author}}</a>
+  <br>
+  {{/each}}
+  {{#if isOwner}}
+  <br>
+  <button class="minimal btnDelete">Delete</button>
+  {{/if}}
+</template>
+
+<template name="newCollectionPage">
+  {{#if isLoggedIn}}
+  <h2 class="newCollection" contenteditable="true" id="newCollection">New Collection</h2>
+  <p>Just click on the name above and change it! Name your collection whatever you like. We reccomend something descriptive, like "5 Tech Articles You Must Read". <p>
+  <button class="minimal btnNewCollection">Create</button>
+  {{else}}
+  {{loginButtons}}
+  <h3>You need to be logged in to make collections!</h3>
   {{/if}}
 </template>

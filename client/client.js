@@ -204,7 +204,7 @@ Template.authorPage.collection = function(){
 };
 
 Template.authorPage.doesOwnCollections = function() {
-  Meteor.subscribe("ownCollections", Meteor.user().services.twitter.screenName);
+  Meteor.subscribe("ownCollections", Session.get('currentAuthorPage'));
   return Collections.find().count();
 };
 

@@ -14,7 +14,8 @@ if (typeof Handlebars !== 'undefined') {
     $('body').flowtype({
      fontRatio : 55,
      minFont : 18,
-
+     maxFont : 24,
+     
      lineRatio : 1.45
     });
   });

@@ -2,6 +2,7 @@
   "name": "Sagacity",
   "version": "1.0.0",
   "engines": {
-    "node": "0.8.24"
+    "node": "0.8.24",
+    "npm": "1.2.15"
   }
 }

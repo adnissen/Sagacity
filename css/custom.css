@@ -1,26 +1,3 @@
-
-.container {
-  margin-top: 1%;
-  margin-left: 22.5%;
-  width: 55%;
-  line-height: 1.4;
-  color: #2A2A2A;
-}
-
-h1,h2,h3,h4,h5,h6,p {
- font-family: inherit;
- font-size: inherit;
-}
-h1 {
- font-size: 2em;
- line-height: 1em;
-}
-h2 {
- font-size: 2em;
- line-height: 1em;
-}
-
-
 #helpModal {
   visibility: hidden;
   position: fixed;
@@ -40,10 +17,6 @@ h2 {
   color: #fff;
   text-align: center;
   font-size: 18px;
-}
-
-img {
-  max-width: 99%;
 }
 
 .editor {

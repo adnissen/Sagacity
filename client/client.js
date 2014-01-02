@@ -9,18 +9,6 @@ Meteor.autosubscribe(function () {
   //Meteor.subscribe("collectionPosts");
 });
 
-if (typeof Handlebars !== 'undefined') {
-  Handlebars.registerHelper('afterBody', function(name, options) {
-    $('body').flowtype({
-     fontRatio : 55,
-     minFont : 18,
-     maxFont : 24,
-     
-     lineRatio : 1.45
-    });
-  });
-}
-
 Template.editor.rendered = function() {
   if(typeof(Storage)!=="undefined")
   {

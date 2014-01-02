@@ -23,7 +23,7 @@ Meteor.Router.add({
 
   '/:author/recent': function(author){
     Meteor.subscribe("restrictiveUsers", author);
-    Meteor.subscribe("posts", author);
+    Meteor.subscribe("posts",   author);
     if (Meteor.users.find({'services.twitter.screenName': author}).count() !== 0)
     {
       Meteor.Router.to('/' + author + '/' + Posts.findOne({author: escape(author)}, {sort: {time: -1}}).urlsafetitle);

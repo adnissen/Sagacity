@@ -3,22 +3,13 @@
   <meta name="description" content="A minimal writing platform">
   <meta name="keywords" content="Blogging, Writing, Reading">
   <link href="medium.css">
+  <link href="poole.css">
   <link href='http://fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <style type="text/css">
-    body {
-     font-size: 20px;
-     line-height: 26px;
-     font-family: 'Lato', sans-serif;
-     //border-top-style:solid;
-     //border-top-width:5px;
-     //border-top-color: #3498db;
-    }
-  </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="container content">
     <div id="dimmer">
     {{renderPage}}
     </div>
@@ -27,13 +18,12 @@
 </body>
 
 <template name="editor">
-  {{#if isLoggedIn}}
-  <img src="{{profileImage}}">
-  {{/if}}
+  <br>
   {{loginButtons}}
   <br>
+  <br>
   <div>
-  <h2 id="title" class="title" contenteditable="true">Sagacity. The awesome intro.</h2>
+  <h1 id="title" class="post-title title" contenteditable="true">Sagacity. The awesome intro.</h1>
   </div>
   <div id="editor" class="editor" contenteditable="true">
 
@@ -42,7 +32,7 @@
 
     <p>To find out how to italicize, bold, add images and more, click the gray box in the upper-right corner. Whatever you write is saved, even if you leave and come back later. Once it's done, hit "Publish" and you'll be taken to a shareable version of your post. You can also edit what you've written from there, all except the title.</p>
 
-    <p>Good luck! Get writing!</p>
+    <p>Get writing!</p>
   </div>
   {{#if isLoggedIn}}
   <br><br>
@@ -85,31 +75,35 @@
 </template>
 
 <template name="showPost">
-  <h2>{{title}}</h2>
-  <div id="content" class="content" contenteditable="{{isOwner}}">
-  {{{content}}}
+  <div class="posts">
+  <div class="post">
+    <h1 class="post-title">{{title}}</h1>
+    <div id="content" class="content" contenteditable="{{isOwner}}">
+    {{{content}}}
+    </div>
+    {{#if isOwner}}
+    <br>
+    <button class="minimal btnUpdate">Update</button>
+    <button class="minimal btnDelete">Delete</button><br>
+    <br>
+    {{/if}}
+    <a href="https://twitter.com/share?text=&quot;{{title}}&quot; by @{{author}}&count=none" class="twitter-share-button" data-url="http://sagacityapp.com{{pageUrl}}" data-lang="en">Tweet</a>
+    <br>
+    <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br>
+    <small><a href="/{{author}}">More From This Author</a></small><br><br>
+    {{#if isLoggedIn}}
+    {{#if doesOwnCollections}}
+    <small>Add This Post to a Collection</small><br>
+    <select id="selectedCollection">
+    {{#each collection}}
+    <option value="{{name}}">{{name}}</option>
+    {{/each}}
+    </select><br><button class="minimal btnAddToCollection">Add</button><br><br>
+    {{/if}}
+    {{/if}}
+    <small><a href="/">Start Writing on Sagacity</a></small><br>
   </div>
-  {{#if isOwner}}
-  <br>
-  <button class="minimal btnUpdate">Update</button>
-  <button class="minimal btnDelete">Delete</button><br>
-  <br>
-  {{/if}}
-  <a href="https://twitter.com/share?text=&quot;{{title}}&quot; by @{{author}}&count=none" class="twitter-share-button" data-url="http://sagacityapp.com{{pageUrl}}" data-lang="en">Tweet</a>
-  <br>
-  <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br>
-  <small><a href="/{{author}}">More From This Author</a></small><br><br>
-  {{#if isLoggedIn}}
-  {{#if doesOwnCollections}}
-  <small>Add This Post to a Collection</small><br>
-  <select id="selectedCollection">
-  {{#each collection}}
-  <option value="{{name}}">{{name}}</option>
-  {{/each}}
-  </select><br><button class="minimal btnAddToCollection">Add</button><br><br>
-  {{/if}}
-  {{/if}}
-  <small><a href="/">Start Writing on Sagacity</a></small><br>
+  </div>
 </template>
 
 <template name="authorPage">

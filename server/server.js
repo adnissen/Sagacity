@@ -91,7 +91,10 @@ Meteor.methods({
         if (typeof authorObj.subscribers !== 'undefined'){
           var _subject = "Sagacity: \"" + _title + "\" by " + Meteor.user().profile.name;
           var _text = Meteor.user().profile.name + " has just published \"" + _title + "\". Read it at http://sagacityapp.com/" + _author + "/" + escape(_title) + "\n\n\n\n - The Sagacity Team\nhttp://sagacityapp.com/";
-          Email.send({to:authorObj.subscribers, from:'subscriptions@sagacityapp.com', subject: _subject, text:_text});
+          authorObj.subscribers.forEach(function(subscriber){
+            Email.send({to:subscriber, from:'subscriptions@sagacityapp.com', subject: _subject, text:_text});
+          })
+          
         }
         return ret;
       }

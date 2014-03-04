@@ -26,8 +26,6 @@
   <h1 id="title" class="post-title title" contenteditable="true">Sagacity. The awesome intro.</h1>
   </div>
   <div id="editor" class="editor" contenteditable="true">
-
-    
     <p class="editorP">Sagacity is a minimal yet robust way to share your writing. It’s easy to get going: just log in with your Twitter account, delete this text and write a new title. Our open nature means that Sagacity can adapt to whatever you have to write. Whether you want to type up a quick haiku to show your Twitter followers or need a dedicated space to write, edit, and store blog posts, Sagacity makes sharing your ideas simple. You can even host it yourself, if that's what you need.</p>
 
     <p>To find out how to italicize, bold, add images and more, just click the gray box in the upper-right corner. Whatever you write on this front page is saved automatically. It’ll be there even if you leave and come back later! Once it's done, hit the "Publish" button below and you'll be taken to a shareable version of your post. You can also edit what you've written from there, all except the title.</p>
@@ -42,7 +40,6 @@
   <i class="iHelp icon-question-sign"></i>
   {{#if isLoggedIn}}
   <i class="iUser icon-user"></i>
-  <i class="iNewCollection icon-briefcase"></i>
   <i class="iSettings icon-gears"></i>
   {{/if}}
   <center>
@@ -91,16 +88,6 @@
     <br>
     <i><a href="https://twitter.com/{{author}}">@{{author}}</a> ({{screenName}})</i><br>
     <small><a href="/{{author}}">More From This Author</a></small><br><br>
-    {{#if isLoggedIn}}
-    {{#if doesOwnCollections}}
-    <small>Add This Post to a Collection</small><br>
-    <select id="selectedCollection">
-    {{#each collection}}
-    <option value="{{name}}">{{name}}</option>
-    {{/each}}
-    </select><br><button class="minimal btnAddToCollection">Add</button><br><br>
-    {{/if}}
-    {{/if}}
     <small><a href="/">Start Writing on Sagacity</a></small><br>
   </div>
   </div>
@@ -118,14 +105,7 @@
   {{#each post}}
   <a href="/{{author}}/{{urlsafetitle}}">{{title}}</a><br>
   {{/each}}
-  {{#if doesOwnCollections}}
-  <br><h3>Collections:</h3>
-  {{#each collection}}
-  <a href="/collections/{{author}}/{{name}}">{{name}}</a><br>
-  {{/each}}
-  {{/if}}
-</template>
-
+  </template>
 <template name="404">
   <h2>oops! are you lost? go <a href="/">home</a></h2>
 </template>
